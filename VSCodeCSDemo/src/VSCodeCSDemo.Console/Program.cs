@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VSCodeCSDemo.Console
+namespace VSCodeCSDemo
 {
     class Program
     {
