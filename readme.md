@@ -1,19 +1,18 @@
-# C# and .Net in VSCode
-C# and .Net are a robust combo, but developing in Visual Studio can be awkward if you prefer the keyboard and terminal approach embodied by VSCode. Thankfully, it's easy to get VSCode up and running for use with these technologies.
+# C# and .Net Development in Visual Studio Code
+C# and .Net Core are a robust combo, but developing and debugging in Visual Studio can be awkward if you prefer the keyboard and terminal approach embodied by VSCode. Thankfully, it's easy to get VSCode up and running for use with these technologies.  
   
-**By following the steps outlined below, you will:
+**This article demonstrates how to:**
 
-* Setup VSCode for C# and .Net development.
-* Create two independant projects - a Console Application (VSCodeCSDemo.Console) and a Class Library (VSCodeCSDemo.Lib).
-* Create a top-level solution to build and manage both projects.
-* Reference the Class Library from the Console App, so it can use it's members.
-* Build and Debug the project from your VSCode integrated terminal.
+* Setup VSCode for C# and .Net Core development.
+* Create two independant projects - A Console Application (VSCodeCSDemo.Console) and a Class Library (VSCodeCSDemo.Lib) that's accessible to it.
+* Create a top-level solution to simultaneously build, manage, and debug both projects.
+* Build and Debug the project from within VSCode.
 
-**See ./VSCodeCSDemo for the resulting output
+**See ./VSCodeCSDemo for the resulting solution**
 
 ## Setup
 
-From your shell or command prompt, install VSCode and the .Net SDK with your favorite package manager. I like [choco](https://chocolatey.org):
+From your shell, install VSCode and the .Net Core SDK with your favorite package manager. On Windows, I like [choco](https://chocolatey.org):
 
 ```bash
 choco install visualstudiocode -Y
@@ -22,11 +21,11 @@ choco install dotnetcore-sdk -Y
 
 # Solution and Project files
 
-Open VSCode in a your folder of choice, toggle open an integrated terminal with `CTRL + '`, and enter the following:
+Open VSCode in a your folder of choice, toggle open an integrated terminal with `CTRL + '`, and enter run following:
 
 ```bash
 # Install requisite VSCode extensions
-# (skip this step if they've been previously installed)
+# (skip this step if you've previously installed them)
 code --install-extension ms-vscode.csharp
 code --install-extension jmrog.vscode-nuget-package-manager
 code --install-extension pkief.material-icon-theme
@@ -60,18 +59,16 @@ code ./src/VSCodeCSDemo.Console/Program.cs
 Hit `F5` to build and debug the solution.
 
 **Error CS0234:**  
-In this demo our project and solution names are different. Because this creates ambiguity in the compiler, you will likely receive the following build error:
+In this demo our project and solution names are different. Because this creates ambiguity in the compiler, you will likely receive the following build error:  
   
-<span style="color:red">
-Program.cs(9,13): error CS0234: The type or namespace name 'WriteLine' does not exist in the namespace 'VSCodeCSDemo.Console' (are you missing an assembly reference?)
-</span>
+`Program.cs(9,13): error CS0234: The type or namespace name 'WriteLine' does not exist in the namespace 'VSCodeCSDemo.Console' (are you missing an assembly reference?)`
   
-The fix is to change the namespace in the offending file. In the case of this demo, change `.src/VSCodeCSDemo.Console/Program.cs` from this:
+The fix is to use the solution's namespace in your project. In our case, we make the following change in `.src/VSCodeCSDemo.Console/Program.cs`.
 
 ```CSharp
 using System;
 
-namespace VSCodeCSDemo.Console   // <---
+namespace VSCodeCSDemo.Console   // <--- Change this
 {
     class Program
     {
@@ -88,7 +85,7 @@ To this:
 ```CSharp
 using System;
 
-namespace VSCodeCSDemo   // <---
+namespace VSCodeCSDemo   // <--- To this
 {
     class Program
     {
@@ -102,6 +99,8 @@ namespace VSCodeCSDemo   // <---
 
 ## A note on solution files
 
-You can get away with not using a solution file at all for your C# and .Net projects in VSCode! However, they are required in the case of this demonstration for the linking together of the two projects.
+You can get away with not using a solution file at all for your C# and .Net projects in VSCode! However, they are necessary if you want to link projects together.
   
-To build a project with no solution file, simply use `dotnet new PROJECT TYPE`.
+To build a standalalone project with no solution file, simply use `dotnet new PROJECT_TYPE`.  
+  
+  For more information on the dotnet command, including a list of project types, checkout the [.Net Core SDK docs](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new?tabs=netcore21).
