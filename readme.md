@@ -19,7 +19,7 @@ choco install visualstudiocode -Y
 choco install dotnetcore-sdk -Y
 ```
 
-# Solution and Project files
+## Solution and Project files
 
 Open VSCode in a your folder of choice, toggle open an integrated terminal with `CTRL + '`, and enter run following:
 
@@ -55,7 +55,7 @@ dotnet add ./src/VSCodeCSDemo.Console/VSCodeCSDemo.Console.csproj reference ./sr
 code ./src/VSCodeCSDemo.Console/Program.cs
 ```
 
-# Build/Debug
+## Build/Debug
 Hit `F5` to build and debug the solution.
 
 **Error CS0234:**  
